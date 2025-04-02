@@ -12,12 +12,13 @@ class MoveableObject:
     A class to represent a moveable object in the game.
     '''
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.__x = x
+        self.__y = y
 
     def move(self, x, y):
         self.x += x
         self.y += y
+        return (self.x, self.y)
 
 
 class Pirate(MoveableObject):
@@ -27,18 +28,22 @@ class Pirate(MoveableObject):
     '''
     def __init__ (self, x, y, name):
         super().__init__(x, y)
-        self.name = name
+        self.__name = name
 
-    def get_treasure_value(self):
+    def getTreasure_value(self):
         sum = 0
         for treasure in self.treasure:
             sum += treasure.get_value()
         return sum
 
-    def move(self, x, y):
-        self.x += x
-        self.y += y
-        return (self.x, self.y)
+    def move(self, a, b):
+        position = super().move(a, b)   
+        return position
+    
+    @classmethod
+    def add_treasure(self, treasure):
+        if isinstance(treasure, Treasure):
+            self.treasure.append(treasure)
 
     
 
@@ -51,10 +56,9 @@ class Ship(MoveableObject):
     def __init__(self, x, y):
         super().__init__(x, y)
 
-    def move(self, x, y):
-        self.x += x
-        self.y += y
-        return (self.x, self.y)
+    def move(self, a, b):
+        position = super().move(a, b)   
+        return position
     
     def fire_cannon(self):
         pass
@@ -62,11 +66,9 @@ class Ship(MoveableObject):
     def reload_cannon(self):
         pass
 
+    @classmethod
     def get_treasure_value(self):
-        sum = 0
-        for treasure in self.treasure:
-            sum += treasure.get_value()
-        return sum
+        return Pirate.getTreasure_value()
     
     @classmethod
     def add_treasure(self, treasure):
@@ -116,3 +118,5 @@ class Treasure:
 
 treature = Treasure('Lesly', 400)
 treature.get_name()
+
+print(treature)
