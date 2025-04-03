@@ -40,9 +40,10 @@ class Pirate(MoveableObject):
     ''' 
     A class to represent a Pirate in the game.
     '''
-    def __init__ (self, x, y, name):
+    def __init__ (self, x, y, name, ship=None):
         super().__init__(x, y)
         self.__name = name
+        self.ship = ship
 
     def get_name(self):
         return self.__name
@@ -55,8 +56,11 @@ class Pirate(MoveableObject):
         return super().getTreasure_value()
 
     def move(self, a, b):
-        position = super().move(a, b)   
-        return position
+        position = super().move(a, b)
+        ship_position = None
+        if isinstance(self.ship, Ship):
+            ship_position = self.ship.move(a, b)   
+        return (position, ship_position)
     
     def add_treasure(self, treasure):
         if isinstance(treasure, Treasure):
@@ -78,18 +82,22 @@ class Ship(MoveableObject):
         super().__init__(x, y)
 
     def move(self, a, b):
-        position = super().move(a, b)   
+        position = Pirate.move(a, b)   
         return position
     
     def create_cannon(self):
         self.cannon = Cannon()
         return self.cannon
     
-    def fire_cannon(self):
-        pass
+    def _fire(self):
+        if len(self.cannonBalls) == 1:
+            self.cannonBalls.pop()
+            return float(len(self.cannonBalls))
 
-    def reload_cannon(self):
-        pass
+    @classmethod
+    def reloading_cannon(self):
+        if len(self.cannonBalls) == 0:
+            self.cannonBalls.append(CannonBall())
 
     def getTreasure_value(self):
      return super().getTreasure_value()
@@ -101,6 +109,8 @@ class Ship(MoveableObject):
         
     def treasure_listGet(self):
         return super().get_treasure_list()
+    
+    
 
 
 class Cannon:
@@ -111,11 +121,13 @@ class Cannon:
     def __init__(self):
         pass
 
-    def _fire(self):
-        if len(self.cannonBalls) > 0:
-            self.cannonBalls.pop()
+    def get_cannoballs(self):
+        return self.cannonBalls
+    
+    def set_cannonballs(self):
+        pass
 
-
+            
 
 
 class CannonBall:
