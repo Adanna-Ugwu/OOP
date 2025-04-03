@@ -14,6 +14,7 @@ class MoveableObject:
     def __init__(self, x, y):
         self.__x = x
         self.__y = y
+        self.treasure = []
 
     def move(self, x, y):
         self.x += x
@@ -27,10 +28,15 @@ class MoveableObject:
 
     def get_treasure_list(self):
         return self.treasure
+    
+    def getTreasure_value(self):
+        sum = 0
+        for treasure in self.treasure:
+            sum += treasure.get_value()
+        return sum
 
 
 class Pirate(MoveableObject):
-    treasure = []
     ''' 
     A class to represent a Pirate in the game.
     '''
@@ -43,29 +49,28 @@ class Pirate(MoveableObject):
     
     def set_name(self, name):
         self.__name = name
+        return self.__name
 
     def getTreasure_value(self):
-        sum = 0
-        for treasure in self.treasure:
-            sum += treasure.get_value()
-        return sum
+        return super().getTreasure_value()
 
     def move(self, a, b):
         position = super().move(a, b)   
         return position
     
     def add_treasure(self, treasure):
-        if len(self.treasure) >= 0 and len(self.treasure) <= 5:
-            super().add_treasure(treasure)
+        if isinstance(treasure, Treasure):
+            if len(self.treasure) >= 0 and len(self.treasure) <= 5:
+                super().add_treasure(treasure)
+                return treasure
 
-    def treasure_list(self):
+    def treasure_listGet(self):
         return super().get_treasure_list()
 
     
 
 
 class Ship(MoveableObject):
-    treasure = []
     '''
     A class to represent a Ship in the game.
     '''
@@ -86,15 +91,15 @@ class Ship(MoveableObject):
     def reload_cannon(self):
         pass
 
-    @classmethod
-    def get_treasure_value(self):
-        return Pirate.getTreasure_value()
+    def getTreasure_value(self):
+     return super().getTreasure_value()
     
     def add_treasure(self, treasure):
-        if len(self.treasure) >= 0 and len(self.treasure) <= 20:
-            super().add_treasure(treasure)
+        if isinstance(treasure, Treasure):
+            if len(self.treasure) >= 0 and len(self.treasure) <= 20:
+                super().add_treasure(treasure)
         
-    def treasure_list(self):
+    def treasure_listGet(self):
         return super().get_treasure_list()
 
 
@@ -102,11 +107,15 @@ class Cannon:
     '''
     A class to represent a Cannon in the game.
     '''
+    cannonBalls = []
     def __init__(self):
         pass
 
     def _fire(self):
-        pass
+        if len(self.cannonBalls) > 0:
+            self.cannonBalls.pop()
+
+
 
 
 class CannonBall:
@@ -115,6 +124,11 @@ class CannonBall:
     '''
     def __init__(self, damage):
         self.__damage = damage
+        self.cannonball = 0
+
+    def create_cannonball(self):
+        self.cannonball += 1
+        return self.cannonball
 
 class Treasure:
     ''' 
