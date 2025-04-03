@@ -19,6 +19,14 @@ class MoveableObject:
         self.x += x
         self.y += y
         return (self.x, self.y)
+    
+    @classmethod
+    def add_treasure(self, treasure):
+        if isinstance(treasure, Treasure):
+            self.treasure.append(treasure)
+
+    def get_treasure_list(self):
+        return self.treasure
 
 
 class Pirate(MoveableObject):
@@ -28,6 +36,12 @@ class Pirate(MoveableObject):
     '''
     def __init__ (self, x, y, name):
         super().__init__(x, y)
+        self.__name = name
+
+    def get_name(self):
+        return self.__name
+    
+    def set_name(self, name):
         self.__name = name
 
     def getTreasure_value(self):
@@ -40,10 +54,11 @@ class Pirate(MoveableObject):
         position = super().move(a, b)   
         return position
     
-    @classmethod
     def add_treasure(self, treasure):
-        if isinstance(treasure, Treasure):
-            self.treasure.append(treasure)
+        super().add_treasure(treasure)
+
+    def treasure_list(self):
+        return super().get_treasure_list()
 
     
 
@@ -70,23 +85,30 @@ class Ship(MoveableObject):
     def get_treasure_value(self):
         return Pirate.getTreasure_value()
     
-    @classmethod
     def add_treasure(self, treasure):
-        if isinstance(treasure, Treasure):
-            self.treasure.append(treasure)
+        super().add_treasure(treasure)
+        
+    def treasure_list(self):
+        return super().get_treasure_list()
 
 
 class Cannon:
     '''
     A class to represent a Cannon in the game.
     '''
+    def __init__(self):
+        pass
+
+    def _fire(self):
+        pass
+
 
 class CannonBall:
     '''
     A class to represent a CannonBall in the game.
     '''
     def __init__(self, damage):
-        self.damage = damage
+        self.__damage = damage
 
 class Treasure:
     ''' 
