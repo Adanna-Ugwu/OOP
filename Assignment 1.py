@@ -55,7 +55,8 @@ class Pirate(MoveableObject):
         return position
     
     def add_treasure(self, treasure):
-        super().add_treasure(treasure)
+        if len(self.treasure) >= 0 and len(self.treasure) <= 5:
+            super().add_treasure(treasure)
 
     def treasure_list(self):
         return super().get_treasure_list()
@@ -75,6 +76,10 @@ class Ship(MoveableObject):
         position = super().move(a, b)   
         return position
     
+    def create_cannon(self):
+        self.cannon = Cannon()
+        return self.cannon
+    
     def fire_cannon(self):
         pass
 
@@ -86,7 +91,8 @@ class Ship(MoveableObject):
         return Pirate.getTreasure_value()
     
     def add_treasure(self, treasure):
-        super().add_treasure(treasure)
+        if len(self.treasure) >= 0 and len(self.treasure) <= 20:
+            super().add_treasure(treasure)
         
     def treasure_list(self):
         return super().get_treasure_list()
@@ -130,12 +136,17 @@ class Treasure:
     def get_name(self):
         return self.__name
     
+    def set_value(self, value):
+        self.__value = value
+    
     def get_value(self):
         return self.__value
     
     def __str__(self):
         return f"{self.__name} worth {self.__value} gold"
-
+    
+    def __repr__(self):
+        return f"{self.__name} worth {self.__value} gold"
 
 
 treature = Treasure('Lesly', 400)
