@@ -127,6 +127,12 @@ class Cannon:
     def set_cannonballs(self):
         pass
 
+    def _fire(self):
+        if len(self.cannonBalls) == 1:
+            for cannonBall in self.cannonBalls:
+                return (float(cannonBall.get_damage()))
+
+
             
 
 
@@ -141,6 +147,9 @@ class CannonBall:
     def create_cannonball(self):
         self.cannonball += 1
         return self.cannonball
+    
+    def get_damage(self):
+        return self.__damage
 
 class Treasure:
     ''' 
