@@ -39,7 +39,6 @@ class MoveableObject:
         self.__y = y
         return (self.__y)
     
-    @classmethod
     def add_treasure(self, treasure):
         '''A class method that adds treasure to the object'''
         if isinstance(treasure, Treasure):
@@ -53,7 +52,8 @@ class MoveableObject:
         '''A method that gets the sum toatl value of treasures in the objects treasure list.'''
         sum = 0
         for treasure in self.__treasure:
-            sum += treasure.get_value()
+            if self.__treasure != []:
+                sum += treasure.get_value()
         return sum
 
 
@@ -261,6 +261,18 @@ class Treasure:
 '''MoveableObject'''
 m = MoveableObject(12, 5)
 print(m.get_position())
+m.move(4, 8)
+print(m.get_position())
+m.set_x_position(4)
+print(m.get_position())
+m.set_y_position(8)
+print(m.get_position())
+print(m.get_treasure_list())
+print(m.getTreasure_value())
+print(m)
+t = Treasure('Mercury', 300)
+m.add_treasure(t)
+print(m.get_treasure_list())
 
 
 
