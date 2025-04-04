@@ -43,6 +43,7 @@ class MoveableObject:
         '''A class method that adds treasure to the object'''
         if isinstance(treasure, Treasure):
             self.__treasure.append(treasure)
+            return self.__treasure
 
     def get_treasure_list(self):
         '''A method that returns the treasure list of the object'''
@@ -56,6 +57,9 @@ class MoveableObject:
                 sum += treasure.get_value()
         return sum
 
+    def __str__(self):
+        '''A method that returns a string representation of the object'''
+        return f"A moveable object at position {self.get_position()} with treasure {self.get_treasure_list()}"
 
 class Pirate(MoveableObject):
     ''' 
@@ -93,7 +97,7 @@ class Pirate(MoveableObject):
 
     def get_ship(self):
         '''the method that returns the ship of the pirate'''
-        return self.__ship
+        return f"Ship at position {self.get_position()}"
 
 
     def move(self, a, b):
@@ -106,13 +110,13 @@ class Pirate(MoveableObject):
     def add_treasure(self, treasure):
         '''A method that checks if what is being added to the treasure list is a treasure, then adds it to the pirates list of treasures if there is a treasure'''
         if isinstance(treasure, Treasure):
-            if len(self.treasure) >= 0 and len(self.treasure) <= 5:
+            if len(self.get_treasure_list()) >= 0 and len(self.get_treasure_list()) <= 5:
                 super().add_treasure(treasure)
                 return treasure
+            
+    
 
-    def treasure_listGet(self):
-        '''The method that returns the pirate's treasure list'''
-        return super().get_treasure_list()
+        
 
     
 
@@ -159,6 +163,9 @@ class Ship(MoveableObject):
     def treasure_listGet(self):
         '''A method that returns the list of treasures in the ship'''
         return super().get_treasure_list()
+    
+    
+
     
     
 
@@ -272,9 +279,29 @@ print(m.getTreasure_value())
 print(m)
 t = Treasure('Mercury', 300)
 m.add_treasure(t)
-print(m.get_treasure_list())
+print(m)
 
 
+
+'''Pirate'''
+p = Pirate(6, 4, "Adanna Ugwu")
+print(p.get_name())
+print(p.get_position())
+p.add_treasure(Treasure('Duck', 0.25))
+p.add_treasure(Treasure('Hammer', 2))
+print(p.get_treasure_list())
+print(p.getTreasure_value())
+p.set_x_position(10)
+print(p.get_position())
+a = p.set_ship(Ship(10, 10))
+print(p.get_ship())
+p.move(5, 2)
+print(p.get_position())
+b = p.set_ship(Ship(15, 6))
+p.move(5, 2)
+print(p.get_ship())
+p.set_y_position(4)
+print(p.get_position())
 
 
 
