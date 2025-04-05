@@ -19,11 +19,14 @@ class MoveableObject:
         self.__y = y
         self.__treasure = []
 
-    def move(self, x, y):
+    def move(self, a, b):
         '''The method that moves the object to position(x, y)'''
-        self.__x += x
-        self.__y += y
-        return (self.__x, self.__y)
+        if type(a)==int or type(a)==float and type(b)==int or type(b)==float:
+            self.__x += a
+            self.__y += b
+            return (self.__x, self.__y)
+        else:
+            print("Error: The move values have to be numbers.")
     
     def get_position(self):
         '''The method that returns the position of the object'''
@@ -31,13 +34,19 @@ class MoveableObject:
     
     def set_x_position(self, x):
         '''The method that sets the x position of the object'''
-        self.__x = x
-        return (self.__x)
+        if type(x) == int or type(x) == float:
+            self.__x = x
+            return (self.__x)
+        else:
+            print("Error: The x postition has to be a number.")
     
     def set_y_position(self, y):
         '''The method that sets the x position of the object'''
-        self.__y = y
-        return (self.__y)
+        if type(y) == int or type(y) == float:
+            self.__y = y
+            return (self.__y)
+        else:
+            print("Error: The y postition has to be a number.")
     
     def add_treasure(self, treasure):
         '''A class method that adds treasure to the object'''
@@ -74,7 +83,7 @@ class Pirate(MoveableObject):
     def __init__ (self, x, y, name):
         '''The initializer method of the class Pirate, it uses super to set the x and y position, and sets the name'''
         super().__init__(x, y)
-        self.__name = name
+        self.set_name(name)
         self.__ship = None
 
 
@@ -84,8 +93,10 @@ class Pirate(MoveableObject):
     
     def set_name(self, name):
         '''The method that sets the name of the pirate'''
-        self.__name = name
-        return self.__name
+        if type(name) == str and len(name) > 0:
+            self.__name = name
+        else:
+            print("Error: Name is invalid.")
 
     def getTreasure_value(self):
         '''The method that implements the superclass method, getTreasure_value, to return the value of the treasure'''
@@ -93,10 +104,13 @@ class Pirate(MoveableObject):
     
     def set_ship(self, s):
         '''The method that sets the ship of the pirate'''
-        if s.get_position() == self.get_position():
-            self.__ship = s
+        if isinstance(s, Ship):
+            if s.get_position() == self.get_position():
+                self.__ship = s
+            else:
+                print("Error: They are not in the same position.")
         else:
-            print("Error: They are not in the same position.")
+            print("Error: You cannot add what is not a ship to the pirate.")
         # a = self.__x
         # b = self.__y
         # self.__ship = Ship(a, b) #composition
@@ -109,8 +123,6 @@ class Pirate(MoveableObject):
     def move(self, a, b):
         '''The method that moves the pirate and the ship the pirate is controlling'''
         position = super().move(a, b)
-        if self.__ship != None:
-            self.__ship.move(a,b)
         return (position)
     
     def add_treasure(self, treasure):
@@ -273,7 +285,7 @@ class Treasure:
         Constructs a Treasure with the argument name and value.  
         '''
         self.set_name(name)
-        self.__value = value
+        self.set_value(value)
 
     def set_name(self, name):
         '''A method that sets the name of the treasure'''
@@ -288,7 +300,10 @@ class Treasure:
     
     def set_value(self, value):
         '''A method that sets the value of the treasure'''
-        self.__value = value
+        if type(value) == int or type(value) == float and value > 0:
+            self.__value = value
+        else:
+            print("Error: Invalid value")
     
     def get_value(self):
         '''A method that returns the value of the treasure'''
@@ -385,7 +400,16 @@ print(cb.get_damage())
 print(cb)
 
 '''Treasure'''
-
+t = Treasure('Chrysalis', 1000)
+print(t.get_name())
+print(t.get_value())
+t.set_name('Butterfly')
+print(t.get_name())
+t.set_value(150)
+print(t.get_value())
+print(t)
+t.set_name(4)
+t.set_value('error')
 
 
 
