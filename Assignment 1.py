@@ -47,6 +47,12 @@ class MoveableObject:
 
     def get_treasure_list(self):
         '''A method that returns the treasure list of the object'''
+        list = []
+        for treasure in self.__treasure:
+            list.append(treasure.__str__())
+        return list
+        
+    def get_treasure(self):
         return self.__treasure
     
     def getTreasure_value(self):
@@ -110,7 +116,7 @@ class Pirate(MoveableObject):
     def add_treasure(self, treasure):
         '''A method that checks if what is being added to the treasure list is a treasure, then adds it to the pirates list of treasures if there is a treasure'''
         if isinstance(treasure, Treasure):
-            if len(self.get_treasure_list()) >= 0 and len(self.get_treasure_list()) <= 5:
+            if len(self.get_treasure()) >= 0 and len(self.get_treasure()) <= 5:
                 super().add_treasure(treasure)
                 return treasure
             
@@ -127,6 +133,7 @@ class Ship(MoveableObject):
     '''
     def __init__(self, x, y):
         super().__init__(x, y)
+        self.cannon = None
 
     def move(self, a, b):
         '''The method that moves the ship'''
@@ -140,15 +147,24 @@ class Ship(MoveableObject):
     
     def _fire(self):
         '''The method that fires the cannon'''
-        if len(self.cannonBalls) == 1:
-            self.cannonBalls.pop()
-            return float(len(self.cannonBalls))
+        if self.cannon != None:
+            if len(self.cannon.get_cannonBalls()) == 1:
+                cannonball = self.cannon.get_cannonBalls().pop()
+            
+                return (f"Damage of the level {cannonball.get_damage()} done")
+            else:
+                print("Error: There is no cannonBall to fire. Create a cannonball first.")
+        else:
+            print("Error: You cannot fire a non-existent cannon.")
 
-    @classmethod
     def reloading_cannon(self):
         '''A class method that reloads the cannon'''
-        if len(self.cannonBalls) == 0:
-            self.cannonBalls.append(CannonBall())
+        if len(self.cannon.cannonBalls) == 0:
+            damage = float(input("Enter the amount of damage for the cannonBall: "))
+            s_cannonball = CannonBall(damage)
+            self.cannon.cannonBalls.append(s_cannonball)
+        else:
+            print("Error: There has to be a cannon and the cannonballs to be empty before reloading.")
 
     def getTreasure_value(self):
         '''A method that returns the value of the treasure in the ship'''
@@ -157,12 +173,12 @@ class Ship(MoveableObject):
     def add_treasure(self, treasure):
         '''A method that adds a treasure to the ships treasure list, it first checks if what is being added is a treasure'''
         if isinstance(treasure, Treasure):
-            if len(self.treasure) >= 0 and len(self.treasure) <= 20:
+            if len(self.get_treasure()) >= 0 and len(self.get_treasure()) <= 20:
                 super().add_treasure(treasure)
-        
-    def treasure_listGet(self):
-        '''A method that returns the list of treasures in the ship'''
-        return super().get_treasure_list()
+
+    def __str__(self):
+        '''A method that returns a string representation of the ship'''
+        return f"A ship at position {self.get_position()} with treasure worth {self.getTreasure_value()} "
     
     
 
@@ -177,26 +193,48 @@ class Cannon:
     
     def __init__(self):
         '''The initializer method of the class Cannon'''
-        self.__cannonBalls = []
+        self.cannonBalls = []
 
-    def get_cannoballs(self):
+
+    def get_cannonballList(self):
         '''The method that returns the cannon balls list'''
-        return self.__cannonBalls
+        ball_list = []
+        for cannonballs in self.cannonBalls:
+            ball_list.append(cannonballs.__str__())
+        
+        return ball_list
+    
+    def get_cannonBalls(self):
+        '''A method that returns the list of cannonballs'''
+        return self.cannonBalls
     
     def set_cannonball(self, cb):
-        '''cb is a ccannonball'''
-        if isinstance(cb, CannonBall):
-            self.__cannonBalls.appen(cb)
-            return self.__cannonBalls
+        '''cb is a cannonball'''
+        if len(self.cannonBalls) == 0:
+
+            if isinstance(cb, CannonBall):
+                self.cannonBalls.append(cb)
+                return self.cannonBalls
+            else:
+                print("Error: You cannot add what is not a cannon ball.")
         else:
-            print("Error: You cannot add what is not a cannon ball.")
+            print("Error: There is already a cannonball in the cannon. You can only have one at a time, fire the cannon to reload it")
     
 
     def _fire(self):
         '''The metod that fires the cannon, and subtracts the fired cannonball from the cannonball list '''
-        if len(self.__cannonBalls) == 1:
-            for cannonBall in self.__cannonBalls:
-                return (float(cannonBall.get_damage()))
+        if len(self.cannonBalls) == 1:
+            for cannonBall in self.cannonBalls:
+                damageDone = f"(Damage of level {float(cannonBall.get_damage())} has been done)"
+                self.cannonBalls.pop(0)
+                return damageDone
+            
+        else:
+            print("Error: There is no cannonBall in the cannon.")
+
+    def __str__(self):
+        '''A  method that returns a string representation of the cannon'''
+        return f"A cannon that has a cannonball of damage {[ball.get_damage() for ball in self.cannonBalls]}"
 
 
             
@@ -211,16 +249,20 @@ class CannonBall:
         '''The initializer method of the class CannonBall, it sets the attribute, damage, and sets the cannonBall to zero.
         '''
         self.__damage = damage
-        self.cannonball = 0
 
     def create_cannonball(self):
         '''A method that creates a cannonBall '''
+        self.cannonball = 0
         self.cannonball += 1
         return self.cannonball
     
     def get_damage(self):
         '''A method that returns the amount of damage for a cannonBall'''
         return self.__damage
+    
+    def __str__(self):
+        '''A method that returns the string representation of a cannonball'''
+        return f"A cannonBall with damage of {self.get_damage()}"
 
 class Treasure:
     ''' 
@@ -256,10 +298,7 @@ class Treasure:
         '''A method that returns a string presentation of the treasure object'''
         return f"{self.__name} worth {self.__value} gold"
     
-    def __repr__(self):
-        '''A mehtod that returns a string reperesentation of the treasure object'''
-        return f"{self.__name} worth {self.__value} gold"
-
+    
 
 
 
@@ -277,7 +316,7 @@ print(m.get_position())
 print(m.get_treasure_list())
 print(m.getTreasure_value())
 print(m)
-t = Treasure('Mercury', 300)
+t = Treasure('Vintage Vase', 300)
 m.add_treasure(t)
 print(m)
 
@@ -303,15 +342,49 @@ print(p.get_ship())
 p.set_y_position(4)
 print(p.get_position())
 
+'''Ship'''
+s = Ship(3, 9)
+print(s.get_position())
+s.move(7, 11)
+print(s.get_position())
+c = s.create_cannon()
+cb = CannonBall(400)
+c.set_cannonball(CannonBall(89))
+print(c.get_cannonballList())
+c.set_cannonball(cb)
+s.add_treasure(Treasure('Couch', 11))
+s.add_treasure(Treasure('Screw', 0.3))
+print(s.get_treasure_list())
+print(s.getTreasure_value())
+print(s._fire())
+print(s._fire())
+s.reloading_cannon()
+s.set_x_position(9)
+s.set_y_position(14)
+print(s.get_position())
+c.set_cannonball(CannonBall(48))
+print(c.get_cannonballList())
+
+
+'''Cannon'''
+c = Cannon()
+print(c.get_cannonballList())
+c.get_cannonBalls
+c.set_cannonball(CannonBall(48))
+print(c.get_cannonballList())
+print(c._fire())
+c.set_cannonball(CannonBall(32))
+print(c.get_cannonballList())
+print(c)
 
 
 
+'''CannonBall'''
+cb = CannonBall(11)
+print(cb.get_damage())
+print(cb)
 
-
-
-
-
-
+'''Treasure'''
 
 
 
