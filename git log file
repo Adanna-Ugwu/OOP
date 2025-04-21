@@ -1,0 +1,89 @@
+[33mcommit 2980e0718131a3f647760b814fdad7565d482bc5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Sat Apr 5 12:23:20 2025 +1030
+
+    Complete and final testing
+
+[33mcommit 05c3208bbda15b6a30f5e788f2d81946f9a0eefa[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Sat Apr 5 11:52:07 2025 +1030
+
+    Testing for Ship and Cannon
+
+[33mcommit 7c0b1c6597fb667f2282a5768270a2ea186d43ef[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 21:55:27 2025 +1030
+
+    Testing for the pirate class
+
+[33mcommit 900f00cc648562caafb442be784b3cbb0c4ef726[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 15:07:28 2025 +1030
+
+    Testing for MoveAble Object Class
+
+[33mcommit 14d5a7036abb0f3b3441d5dea270d98c536f5ffc[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 14:47:41 2025 +1030
+
+    Adding Docstrings to the code
+
+[33mcommit 59eecbdfe7c048ab5603db28c114958c182f2038[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 12:00:01 2025 +1030
+
+    Creating the get_ship and set_ship method for Pirate
+
+[33mcommit 9e3546f38f645165de0b4f459b9b693d0ef72169[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 00:45:28 2025 +1030
+
+    adding the private fire method to Cannon
+
+[33mcommit ccd76ea257e36624b38f7db07b889babef9a8931[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Fri Apr 4 00:35:55 2025 +1030
+
+    Creating the possibility for a ship to be linked to a pirate and having the ship move when the pirate moves
+
+[33mcommit 51e6376cc3a0bdb72d4f3496a3abe09b1dabe28a[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Thu Apr 3 23:50:04 2025 +1030
+
+    Creating the fire methods and create_cannonBalls methods
+
+[33mcommit caa4e42bbdb4786aeba92ae030d720e095722e46[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Thu Apr 3 23:26:36 2025 +1030
+
+    Putting a limit to the number of items that can be romved from the treasure lists.
+
+[33mcommit e74150a331f4d3c498116712d27c94a165c30e83[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Thu Apr 3 20:34:55 2025 +1030
+
+    Adding getter and setter methods for pirate
+
+[33mcommit 124a5357ac5377fe02f3481c53dc9d3be0fbe6f4[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Wed Apr 2 11:28:56 2025 +1030
+
+    Implementing move through the super() function for ship and pirate.
+
+[33mcommit 6e5ac9ce72ee09caff3deda43997ce73200e6f4b[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Tue Apr 1 21:34:11 2025 +1030
+
+    Next step
+
+[33mcommit 129aa2c5a88e18a5c376527fc28cb5ec1cfb4510[m
+Author: Adanna Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Mon Mar 31 18:41:11 2025 +1030
+
+    Initial commit
+
+[33mcommit 0c51ba02c87aef2f0cbb1feebf49a5934a01e927[m
+Author: Adanna-Ugwu <ugway001@mymail.unisa.edu.au>
+Date:   Sun Mar 30 16:03:05 2025 +1030
+
+    Initial commit
